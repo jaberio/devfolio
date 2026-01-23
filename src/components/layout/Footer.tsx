@@ -1,6 +1,7 @@
 import { Github, Twitter, Linkedin, Mail, Circle } from 'lucide-react';
+import { SiteConfig } from '@/lib/config';
 
-export function Footer({ config }: { config: any }) {
+export function Footer({ config }: { config: SiteConfig }) {
     const year = new Date().getFullYear();
     const { footer, site } = config;
 

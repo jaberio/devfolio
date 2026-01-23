@@ -6,7 +6,7 @@ site:
   branding:
     primaryColor: "#2563eb" # Blue 600
     fontSans: "Inter"
-    logoName: "Devfolio"
+    logoName: "jaberio"
     logoHighlight: ".dev"
     tagline: "Building digital experiences that matter."
 

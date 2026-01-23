@@ -8,12 +8,12 @@ export interface SiteConfig {
     title: string;
     description: string;
     url: string;
-    branding?: {
+    branding: {
       primaryColor: string;
       fontSans: string;
       logoName: string;
       logoHighlight: string;
-      tagline?: string;
+      tagline: string;
     };
   };
   footer: {
@@ -42,6 +42,8 @@ export interface SiteConfig {
     description: string;
     tech: string[];
     github: string;
+    stars?: number;
+    language?: string;
   }>;
   github: {
     username: string;
@@ -62,7 +64,7 @@ const DEFAULT_CONFIG: SiteConfig = {
     branding: {
       primaryColor: "#2563eb",
       fontSans: "Inter",
-      logoName: "Devfolio",
+      logoName: "jaberio",
       logoHighlight: ".dev",
       tagline: "Building digital experiences that matter.",
     }
@@ -106,6 +108,7 @@ export function getConfig(): SiteConfig {
       return DEFAULT_CONFIG;
     }
     const fileContents = fs.readFileSync(configPath, 'utf8');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const config = yaml.load(fileContents) as any;
 
     // Deep merge or manual merge to ensure defaults

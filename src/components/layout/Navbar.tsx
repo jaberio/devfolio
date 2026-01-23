@@ -5,21 +5,27 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SiteConfig } from '@/lib/config';
 
-export function Navbar({ config }: { config: any }) {
+export function Navbar({ config }: { config: SiteConfig }) {
     const [mounted, setMounted] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const { theme, setTheme, resolvedTheme } = useTheme();
+    const { setTheme, resolvedTheme } = useTheme();
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setMounted(true);
+    }, []);
 
     const branding = config.site.branding;
-
-    useEffect(() => setMounted(true), []);
+    const logoName = branding?.logoName || "Devfolio";
+    const logoHighlight = branding?.logoHighlight || ".dev";
 
     if (!mounted) {
         return (
             <nav className="sticky top-0 z-50 w-full bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
                 <div className="h-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <div className="text-xl font-bold">{branding.logoName}{branding.logoHighlight}</div>
+                    <div className="text-xl font-bold">{logoName}{logoHighlight}</div>
                 </div>
             </nav>
         );
@@ -44,7 +50,7 @@ export function Navbar({ config }: { config: any }) {
                         className="flex items-center"
                     >
                         <Link href="/" className="text-xl font-bold text-foreground group">
-                            {branding.logoName}<span className="text-blue-600 group-hover:text-blue-500 transition-colors">{branding.logoHighlight}</span>
+                            {logoName}<span className="text-blue-600 group-hover:text-blue-500 transition-colors">{logoHighlight}</span>
                         </Link>
                     </motion.div>
 
