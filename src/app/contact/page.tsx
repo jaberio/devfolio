@@ -1,5 +1,5 @@
 import { getConfig } from '@/lib/config';
-import { Mail, MessageSquare, Send, Github, Twitter } from 'lucide-react';
+import { Mail, Send, Github, Twitter } from 'lucide-react';
 import * as motion from 'framer-motion/client';
 
 export const dynamic = 'force-static';
@@ -15,7 +15,7 @@ export default function ContactPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-5xl md:text-8xl font-black text-foreground mb-8 tracking-tighter"
                 >
-                    Let's talk<span className="text-blue-600">.</span>
+                    Let&apos;s talk<span className="text-blue-600">.</span>
                 </motion.h1>
                 <motion.p
                     initial={{ opacity: 0, y: 15 }}
@@ -59,7 +59,7 @@ export default function ContactPage() {
                 >
                     <h3 className="text-xl font-bold text-foreground mb-3">Other Channels</h3>
                     <p className="text-gray-500 dark:text-gray-500 mb-10 text-sm max-w-xs">
-                        I'm also active on these platforms for faster response times.
+                        I&apos;m also active on these platforms for faster response times.
                     </p>
                     <div className="flex gap-6">
                         {[

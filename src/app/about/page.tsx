@@ -23,7 +23,7 @@ export default function AboutPage() {
                     transition={{ delay: 0.1 }}
                     className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl"
                 >
-                    I'm {config.site.name}, a {config.site.title} passionate about crafting elegant code.
+                    I&apos;m {config.site.name}, a {config.site.title} passionate about crafting elegant code.
                 </motion.p>
             </header>
 

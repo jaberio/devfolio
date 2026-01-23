@@ -37,7 +37,7 @@ export default async function HomePage() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-5xl md:text-7xl font-black tracking-tight text-foreground mb-6 leading-[1.1]">
-                Hi, I'm <span className="text-blue-600 dark:text-blue-500">{config.site.name}</span>. <br />
+                Hi, I&apos;m <span className="text-blue-600 dark:text-blue-500">{config.site.name}</span>. <br />
                 <span className="text-gray-400 dark:text-gray-500">{config.site.title}</span>
               </h1>
             </motion.div>
@@ -103,7 +103,7 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project: any, i) => (
+          {featuredProjects.map((project, i) => (
             <ProjectCard
               key={project.slug}
               title={project.title}
@@ -129,7 +129,7 @@ export default async function HomePage() {
               Ready to <span className="text-blue-600">Collaborate?</span>
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-lg max-w-md leading-relaxed">
-              I'm always open to new projects, open-source contributions, and technical discussions. Let's build something great together.
+              I&apos;m always open to new projects, open-source contributions, and technical discussions. Let&apos;s build something great together.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 relative z-10">
