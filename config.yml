@@ -1,0 +1,55 @@
+site:
+  name: "Jaber"
+  title: "Full-Stack Developer"
+  description: "I build web, mobile, and open-source tools"
+  url: "https://jaberio.dev"
+  branding:
+    primaryColor: "#2563eb" # Blue 600
+    fontSans: "Inter"
+    logoName: "Devfolio"
+    logoHighlight: ".dev"
+    tagline: "Building digital experiences that matter."
+
+footer:
+  credits: "Crafted with passion by Jaber"
+  statusText: "Available for new opportunities"
+  showBuiltBy: true
+
+features:
+  useStaticProjects: true
+  useGithubProjects: true
+  enableBlog: true
+
+social:
+  github: "jaberio"
+  twitter: "jaberio"
+  linkedin: "jaberio"
+  email: "me@jaberio.dev"
+
+profile:
+  bio: |
+    I specialize in full-stack development, with a strong focus on building scalable web and mobile applications. 
+    My expertise spans across various modern technologies, and I constantly strive to learn and adapt to the 
+    ever-evolving tech landscape.
+  skills:
+    - "Web Development (React, Next.js)"
+    - "Mobile Development (Flutter, React Native)"
+    - "Backend Systems (Node.js, Go)"
+    - "Open Source Contributions"
+    - "UI/UX Design Systems"
+    - "Cloud Infrastructure (AWS, Vercel)"
+
+staticProjects:
+  - slug: "flutter-storage-info"
+    title: "Flutter Storage Info"
+    description: "Flutter plugin for Android storage metrics"
+    tech: ["Flutter", "Android"]
+    github: "https://github.com/jaberio/flutter_storage_info"
+
+github:
+  username: "jaberio"
+  pinnedOnly: false
+  maxRepos: 6
+
+blog:
+  contentPath: "content/blog"
