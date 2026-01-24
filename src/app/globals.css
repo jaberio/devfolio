@@ -75,7 +75,7 @@
 
 /* Syntax Highlighting Styles (Github Dark Dimmed inspired) */
 .prose pre {
-  @apply bg-surface-50 dark:bg-surface-50 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-inner my-8 overflow-hidden;
+  @apply bg-surface-50 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-inner my-8 overflow-hidden;
 }
 
 .prose code {
