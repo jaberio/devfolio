@@ -1,12 +1,25 @@
 import type { NextConfig } from "next";
 
-const isVercel = process.env.VERCEL === '1';
+/**
+ * Devfolio Universal Deployment Config
+ * 
+ * This config automatically handles:
+ * 1. GitHub Pages (Subfolder hosting)
+ * 2. Vercel/Netlify/Cloudflare (Root domain hosting)
+ * 3. Local Development
+ */
+
+const isGitHubPages = process.env.IS_GITHUB_PAGES === 'true';
+const basePath = isGitHubPages ? '/devfolio' : '';
 
 const nextConfig: NextConfig = {
-  // Only export for GitHub Pages, Vercel handles builds automatically
-  output: isVercel ? undefined : 'export',
-  // Only use basePath for GitHub Pages subfolder (if not on Vercel)
-  basePath: isVercel ? '' : '/devfolio',
+  // Use 'export' for static hosts like GitHub Pages
+  // Standard hosts like Vercel usually handle builds without this
+  output: isGitHubPages ? 'export' : undefined,
+
+  // Apply basePath only for GitHub Pages project sites
+  basePath: basePath,
+
   images: {
     unoptimized: true,
   },

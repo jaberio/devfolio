@@ -36,6 +36,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IS_GITHUB_PAGES: 'true'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
