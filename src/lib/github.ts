@@ -22,7 +22,13 @@ export async function getGithubProjects(): Promise<ProjectData[]> {
     if (!config.features.useGithubProjects) return [];
 
     try {
+        const headers: HeadersInit = {};
+        if (process.env.GITHUB_TOKEN) {
+            headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
+        }
+
         const response = await fetch(`https://api.github.com/users/${config.github.username}/repos?sort=updated&per_page=100`, {
+            headers,
             next: { revalidate: 3600 }
         });
 
