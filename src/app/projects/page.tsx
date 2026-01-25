@@ -15,7 +15,7 @@ export default async function ProjectsPage() {
             slug: repo.name,
             title: repo.name,
             description: repo.description,
-            tech: [],
+            tech: [repo.language],
             language: repo.language,
             stars: repo.stars,
             github: repo.url,

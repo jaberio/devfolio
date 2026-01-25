@@ -18,7 +18,7 @@ export default async function HomePage() {
       slug: repo.name,
       title: repo.name,
       description: repo.description,
-      tech: [],
+      tech: [repo.language],
       language: repo.language,
       stars: repo.stars,
       github: repo.url,
@@ -28,7 +28,11 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-20 pb-20">
       {/* Hero Section */}
+      {/* Hero Section */}
       <section className="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+        {/* Mesh Background */}
+        <div className="absolute inset-0 bg-mesh opacity-30 dark:opacity-20 pointer-events-none -z-10" />
+
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center md:text-left md:max-w-3xl">
             <motion.div
@@ -37,8 +41,8 @@ export default async function HomePage() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-5xl md:text-7xl font-black tracking-tight text-foreground mb-6 leading-[1.1]">
-                Hi, I&apos;m <span className="text-blue-600 dark:text-blue-500">{config.site.name}</span>. <br />
-                <span className="text-gray-400 dark:text-gray-500">{config.site.title}</span>
+                Hi, I&apos;m <span className="text-gradient inline-block">{config.site.name}</span>.<br />
+                <span className="text-gray-500 dark:text-gray-400 text-3xl md:text-5xl font-bold mt-2 block">{config.site.title}</span>
               </h1>
             </motion.div>
 
@@ -46,7 +50,7 @@ export default async function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-2xl"
+              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed max-w-2xl font-medium"
             >
               {config.site.description}
             </motion.p>
@@ -59,13 +63,13 @@ export default async function HomePage() {
             >
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-2xl text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-xl hover:shadow-blue-500/25 active:scale-95"
+                className="btn-glow inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-2xl text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 active:scale-95"
               >
                 Explore Projects <ArrowRight className="ml-2" size={20} />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 border border-gray-200 dark:border-gray-800 text-base font-bold rounded-2xl text-gray-700 dark:text-gray-300 bg-background hover:bg-gray-100 dark:hover:bg-gray-800 transition-all shadow-sm active:scale-95"
+                className="btn-glow inline-flex items-center justify-center px-8 py-4 border border-gray-200 dark:border-gray-700 text-base font-bold rounded-2xl text-gray-700 dark:text-gray-200 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 transition-all shadow-sm active:scale-95"
               >
                 Contact Me
               </Link>
@@ -73,21 +77,20 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Background shapes */}
+        {/* Decorative elements */}
         <motion.div
           animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, 5, 0],
+            scale: [1, 1.2, 1],
+            rotate: [0, 10, 0],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
-            duration: 10,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-0 right-0 -translate-y-12 translate-x-12 blur-3xl opacity-20 dark:opacity-10 pointer-events-none"
-        >
-          <div className="aspect-square w-[600px] bg-blue-600/40 rounded-full"></div>
-        </motion.div>
+          className="absolute top-10 right-10 -z-10 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"
+        />
       </section>
 
       {/* Featured Projects */}

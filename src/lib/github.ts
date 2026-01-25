@@ -7,6 +7,7 @@ interface GithubRepo {
     stargazers_count: number;
     language: string;
     fork: boolean;
+    topics: string[];
 }
 
 export interface ProjectData {
@@ -15,6 +16,7 @@ export interface ProjectData {
     url: string;
     stars: number;
     language: string;
+    topics: string[];
 }
 
 export async function getGithubProjects(): Promise<ProjectData[]> {
@@ -62,7 +64,9 @@ export async function getGithubProjects(): Promise<ProjectData[]> {
                 description: repo.description || "",
                 url: repo.html_url,
                 stars: repo.stargazers_count,
-                language: repo.language || "Unknown",
+                // Ensure language is never null/undefined. GitHub API returns null for some repos.
+                language: repo.language || "code",
+                topics: repo.topics || [],
             }));
     } catch (error) {
         console.error("Error fetching GitHub projects:", error);
