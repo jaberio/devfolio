@@ -32,7 +32,20 @@ export async function getGithubProjects(): Promise<ProjectData[]> {
             next: { revalidate: 3600 }
         });
 
-        if (!response.ok) return [];
+        if (!response.ok) {
+            // Enhanced error logging
+            const rateLimitRemaining = response.headers.get('x-ratelimit-remaining');
+            const rateLimitReset = response.headers.get('x-ratelimit-reset');
+
+            if (response.status === 403 && rateLimitRemaining === '0') {
+                const resetDate = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000).toLocaleString() : 'unknown';
+                console.error(`GitHub API rate limit exceeded. Resets at: ${resetDate}`);
+                console.error('Consider adding a GITHUB_TOKEN environment variable to increase rate limits.');
+            } else {
+                console.error(`GitHub API error: ${response.status} ${response.statusText}`);
+            }
+            return [];
+        }
 
         const repos = await response.json() as GithubRepo[];
 
@@ -53,6 +66,9 @@ export async function getGithubProjects(): Promise<ProjectData[]> {
             }));
     } catch (error) {
         console.error("Error fetching GitHub projects:", error);
+        if (error instanceof Error) {
+            console.error("Error details:", error.message);
+        }
         return [];
     }
 }

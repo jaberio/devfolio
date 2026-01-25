@@ -10,7 +10,8 @@ import type { NextConfig } from "next";
  */
 
 const isGitHubPages = process.env.IS_GITHUB_PAGES === 'true';
-const basePath = isGitHubPages ? '/devfolio' : '';
+// Allow BASE_PATH to be set via environment variable, fallback to /devfolio for GitHub Pages
+const basePath = process.env.BASE_PATH || (isGitHubPages ? '/devfolio' : '');
 
 const nextConfig: NextConfig = {
   // Use 'export' for static hosts like GitHub Pages
@@ -21,7 +22,9 @@ const nextConfig: NextConfig = {
   basePath: basePath,
 
   images: {
-    unoptimized: true,
+    // Only disable optimization for static exports (GitHub Pages)
+    // Vercel and other platforms can use optimized images
+    unoptimized: isGitHubPages,
   },
 };
 
