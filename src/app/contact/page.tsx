@@ -1,11 +1,55 @@
-import { getConfig } from '@/lib/config';
-import { Mail, Send, Github, Twitter } from 'lucide-react';
-import * as motion from 'framer-motion/client';
+'use client';
 
-export const dynamic = 'force-static';
+import { getConfig } from '@/lib/config';
+import { Mail, Send, Github, Twitter, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import * as motion from 'framer-motion/client';
+import { useState, FormEvent } from 'react';
 
 export default function ContactPage() {
     const config = getConfig();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        try {
+            const form = e.currentTarget;
+            const formDataObj = new FormData(form);
+
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formDataObj as any).toString(),
+            });
+
+            if (response.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            setSubmitStatus('error');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
 
     return (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -23,7 +67,7 @@ export default function ContactPage() {
                     transition={{ delay: 0.1 }}
                     className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed"
                 >
-                    Currently focusing on full-stack solutions and open source. Have an inquiry or just want to connect?
+                    Have a project in mind or just want to connect? Drop me a message below.
                 </motion.p>
             </header>
 
@@ -33,20 +77,130 @@ export default function ContactPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                 >
-                    <div className="flex flex-col items-center p-12 bg-surface-50/50 dark:bg-surface-50/10 rounded-[2rem] border border-gray-100 dark:border-gray-800 text-center relative overflow-hidden group">
-                        <motion.div
-                            whileHover={{ rotate: [0, -10, 10, 0] }}
-                            className="p-5 bg-white dark:bg-surface-100 rounded-2xl text-blue-600 dark:text-blue-400 shadow-xl shadow-blue-500/5 mb-8 border border-gray-100 dark:border-gray-800"
+                    <form
+                        name="contact"
+                        method="POST"
+                        data-netlify="true"
+                        data-netlify-honeypot="bot-field"
+                        onSubmit={handleSubmit}
+                        className="p-8 md:p-12 rounded-[2rem] border border-gray-200 dark:border-gray-800 space-y-6"
+                        style={{ backgroundColor: 'var(--card-bg)' }}
+                    >
+                        {/* Netlify form detection */}
+                        <input type="hidden" name="form-name" value="contact" />
+
+                        {/* Honeypot for spam protection */}
+                        <div className="hidden">
+                            <label>
+                                Don't fill this out if you're human: <input name="bot-field" />
+                            </label>
+                        </div>
+
+                        {/* Name Field */}
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-900 text-foreground focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                placeholder="Your name"
+                            />
+                        </div>
+
+                        {/* Email Field */}
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-900 text-foreground focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                placeholder="your.email@example.com"
+                            />
+                        </div>
+
+                        {/* Message Field */}
+                        <div>
+                            <label htmlFor="message" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Message
+                            </label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                                rows={6}
+                                className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-900 text-foreground focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                                placeholder="Tell me about your project or inquiry..."
+                            />
+                        </div>
+
+                        {/* Submit Button */}
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-blue-500/30 active:scale-95 disabled:cursor-not-allowed disabled:active:scale-100"
                         >
-                            <Mail size={40} />
-                        </motion.div>
-                        <h3 className="text-3xl font-bold text-foreground mb-3 tracking-tight">Email Me</h3>
-                        <p className="text-gray-500 dark:text-gray-500 mb-10 font-bold tracking-widest uppercase text-xs">{config.social.email}</p>
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 size={20} className="animate-spin" />
+                                    Sending...
+                                </>
+                            ) : (
+                                <>
+                                    Send Message <Send size={20} />
+                                </>
+                            )}
+                        </button>
+
+                        {/* Success Message */}
+                        {submitStatus === 'success' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex items-center gap-2 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-green-800 dark:text-green-300"
+                            >
+                                <CheckCircle size={20} />
+                                <span className="font-semibold">Message sent successfully! I'll get back to you soon.</span>
+                            </motion.div>
+                        )}
+
+                        {/* Error Message */}
+                        {submitStatus === 'error' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-red-800 dark:text-red-300"
+                            >
+                                <AlertCircle size={20} />
+                                <span className="font-semibold">Failed to send message. Please try again or email me directly.</span>
+                            </motion.div>
+                        )}
+                    </form>
+
+                    {/* Direct Email Option */}
+                    <div className="mt-8 text-center">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                            Or email me directly at
+                        </p>
                         <a
                             href={`mailto:${config.social.email}`}
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-foreground text-background rounded-2xl font-black hover:opacity-90 transition-all shadow-2xl active:scale-95"
+                            className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:underline"
                         >
-                            Send Message <Send size={20} />
+                            <Mail size={16} />
+                            {config.social.email}
                         </a>
                     </div>
                 </motion.div>
