@@ -21,8 +21,7 @@ export function ProjectCard({ title, description, tech, link, stars, language, i
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
             whileHover={{ y: -8, scale: 1.02 }}
-            // Using !important to force update and bypass cache
-            className="group glass-card flex flex-col items-start p-6 rounded-[2rem] h-full dark:!bg-slate-950/90 dark:hover:!bg-black"
+            className="group glass-card flex flex-col items-start p-5 rounded-2xl h-full"
         >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 dark:from-blue-500/10 dark:to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 

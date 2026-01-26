@@ -27,7 +27,7 @@ export function BlogCard({ title, summary, date, slug, index }: BlogCardProps) {
             transition={{ delay: index * 0.1 }}
         >
             <Link href={`/blog/${slug}`} className="group block">
-                <article className="p-6 bg-surface-50 dark:bg-surface-100 rounded-2xl border border-gray-200 dark:border-gray-800 group-hover:border-blue-500 dark:group-hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl h-full flex flex-col">
+                <article className="p-5 rounded-2xl border border-gray-200 dark:border-slate-700 group-hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl h-full flex flex-col" style={{ backgroundColor: 'var(--card-bg)' }}>
                     <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3 gap-2">
                         <Calendar size={14} />
                         <time dateTime={date}>{formattedDate}</time>
