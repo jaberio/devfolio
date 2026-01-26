@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   // Merge projects if both enabled
   const featuredProjects = [
-    ...(config.features.useStaticProjects ? config.staticProjects : []),
+    ...(config.features.useStaticProjects && !config.staticProjects.useDynamic ? config.staticProjects.manual : []),
     ...githubProjects.map(repo => ({
       slug: repo.name,
       title: repo.name,

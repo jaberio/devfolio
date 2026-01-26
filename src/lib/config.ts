@@ -36,15 +36,19 @@ export interface SiteConfig {
     bio: string;
     skills: string[];
   };
-  staticProjects: Array<{
-    slug: string;
-    title: string;
-    description: string;
-    tech: string[];
-    github: string;
-    stars?: number;
-    language?: string;
-  }>;
+  staticProjects: {
+    useDynamic: boolean;
+    count: number;
+    manual: Array<{
+      slug: string;
+      title: string;
+      description: string;
+      tech: string[];
+      github: string;
+      stars?: number;
+      language?: string;
+    }>;
+  };
   github: {
     username: string;
     pinnedOnly: boolean;
@@ -89,7 +93,11 @@ const DEFAULT_CONFIG: SiteConfig = {
     bio: "",
     skills: [],
   },
-  staticProjects: [],
+  staticProjects: {
+    useDynamic: false,
+    count: 3,
+    manual: [],
+  },
   github: {
     username: "",
     pinnedOnly: true,

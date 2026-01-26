@@ -40,11 +40,14 @@ profile:
     - "Cloud Infrastructure (AWS, Vercel)"
 
 staticProjects:
-  - slug: "flutter-storage-info"
-    title: "Flutter Storage Info"
-    description: "Flutter plugin for Android storage metrics"
-    tech: ["Flutter", "Android"]
-    github: "https://github.com/jaberio/flutter_storage_info"
+  useDynamic: true  # Automatically use top-starred repos
+  count: 3          # Number of top repos to show
+  manual:           # Manual projects (only used if useDynamic: false)
+    - slug: "flutter-storage-info"
+      title: "Flutter Storage Info"
+      description: "Flutter plugin for Android storage metrics"
+      tech: ["Flutter", "Android"]
+      github: "https://github.com/jaberio/flutter_storage_info"
 
 github:
   username: "jaberio"

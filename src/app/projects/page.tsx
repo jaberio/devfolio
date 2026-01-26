@@ -1,5 +1,5 @@
 import { getConfig } from '@/lib/config';
-import { getGithubProjects } from '@/lib/github';
+import { getGithubProjects, getTopStarredProjects } from '@/lib/github';
 import { ProjectCard } from '@/components/ui/ProjectCard';
 import * as motion from 'framer-motion/client';
 
@@ -7,11 +7,12 @@ export const dynamic = 'force-static';
 
 export default async function ProjectsPage() {
     const config = getConfig();
-    const githubProjects = await getGithubProjects();
 
-    const allProjects = [
-        ...(config.features.useStaticProjects ? config.staticProjects : []),
-        ...githubProjects.map(repo => ({
+    // Get static projects (either dynamic top-starred or manual)
+    let staticProjects = [];
+    if (config.staticProjects.useDynamic) {
+        const topStarred = await getTopStarredProjects(config.staticProjects.count);
+        staticProjects = topStarred.map(repo => ({
             slug: repo.name,
             title: repo.name,
             description: repo.description,
@@ -19,7 +20,29 @@ export default async function ProjectsPage() {
             language: repo.language,
             stars: repo.stars,
             github: repo.url,
-        }))
+        }));
+    } else {
+        staticProjects = config.staticProjects.manual;
+    }
+
+    // Get remaining GitHub projects (excluding top-starred ones if dynamic)
+    const githubProjects = await getGithubProjects();
+    const topStarredUrls = new Set(staticProjects.map(p => p.github));
+    const remainingGithubProjects = githubProjects
+        .filter(repo => !topStarredUrls.has(repo.url))
+        .map(repo => ({
+            slug: repo.name,
+            title: repo.name,
+            description: repo.description,
+            tech: [repo.language],
+            language: repo.language,
+            stars: repo.stars,
+            github: repo.url,
+        }));
+
+    const allProjects = [
+        ...(config.features.useStaticProjects ? staticProjects : []),
+        ...remainingGithubProjects
     ];
 
     return (
