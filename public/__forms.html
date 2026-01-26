@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netlify Forms Detection</title>
+</head>
+<body>
+    <!-- This file is used by Netlify to detect forms during build -->
+    <!-- It is not served to users -->
+    
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+    </form>
+</body>
+</html>
