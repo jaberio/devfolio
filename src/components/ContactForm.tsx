@@ -25,13 +25,20 @@ export default function ContactForm({ email, github, twitter }: ContactFormProps
         setSubmitStatus('idle');
 
         try {
-            const form = e.currentTarget;
-            const formDataObj = new FormData(form);
+            // Encode form data in the format Netlify expects
+            const formElement = e.currentTarget;
+            const formData = new FormData(formElement);
+
+            // Convert FormData to URLSearchParams for proper encoding
+            const params = new URLSearchParams();
+            formData.forEach((value, key) => {
+                params.append(key, value.toString());
+            });
 
             const response = await fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formDataObj as any).toString(),
+                body: params.toString(),
             });
 
             if (response.ok) {
