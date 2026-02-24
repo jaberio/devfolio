@@ -35,37 +35,38 @@
 
 /* Base theme variables */
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --primary-color: #2563eb;
+  --background: #f8fafc;
+  --foreground: #18181b;
+  --primary-color: #0f62fe;
 
-  --surface-50: #f8fafc;
-  --surface-100: #f1f5f9;
-  --surface-200: #e2e8f0;
+  --surface-50: #f3f6fa;
+  --surface-100: #e5eaf1;
+  --surface-200: #d1d9e6;
 
   /* Card backgrounds */
-  --card-bg: #f8fafc;
-  --card-bg-hover: #ffffff;
+  --card-bg: #ffffffcc;
+  --card-bg-hover: #f3f6faee;
+  --glass-blur: blur(16px);
+  --border-radius: 1.25rem;
+  --shadow-elevated: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+  --font-sans: 'Inter', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
 .dark {
-  /* Softer Dark Mode - More balanced deep charcoal/slate */
-  --background: #111827;
-  /* Slate 950/900 mix, very soft */
-  --foreground: #f9fafb;
-  /* Lighter white */
-  --primary-color: #60a5fa;
+  --background: #0b1120;
+  --foreground: #f3f6fa;
+  --primary-color: #5b9aff;
 
-  --surface-50: #1f2937;
-  /* Gray 800 */
-  --surface-100: #374151;
-  /* Gray 700 */
-  --surface-200: #4b5563;
-  /* Gray 600 */
+  --surface-50: #181c25;
+  --surface-100: #23293a;
+  --surface-200: #2e3650;
 
-  /* Card backgrounds - blue-tinted dark, NOT grey */
-  --card-bg: #1e293b;
-  --card-bg-hover: #334155;
+  --card-bg: #181c25cc;
+  --card-bg-hover: #23293aee;
+  --glass-blur: blur(18px);
+  --border-radius: 1.25rem;
+  --shadow-elevated: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  --font-sans: 'Inter', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -76,8 +77,10 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
     min-height: 100vh;
+    letter-spacing: -0.01em;
   }
 }
 
